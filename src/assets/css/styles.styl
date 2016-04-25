@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic')
+
+base-font = 'PT Sans'
+base-font-size = 16px
+base-font-color = #565656
+
+base-background-color = #d7cec7
+
+color-tan = #c09f80
+
+body
+  font: base-font-size base-font, sans-serif
+  color: base-font-color
+  margin: 0
+  padding: 0
+
+.container
+  width: 1280
+  margin: 0 auto
+
+.logo
+  background: url('../img/logo.png') no-repeat
+  width: 50px
+  height: 50px
+
+.navigation
+  background-color: white
+  margin: 20px 0
+
+.navigation__list
+  display: flex
+  flex-direction: row
+  justify-content: flex-end
+  margin: 0
+  list-style: none
+  background-color: white
+
+.navigation__list a {
+  text-decoration: none
+  display: block
+  padding: 1em
+  color: base-font-color
+}
+
+.navigation__list a:hover {
+  color: color-tan
+}
+
+title-color = #76323f
+
+.movies_list
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  background-color: base-background-color
+
+.movies_list__item
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: flex-start
+  width: 100%
+  padding-bottom: 20px
+  border-bottom: 1px solid color-tan
+
+.movies_list__item-right
+  display: flex
+  flex-direction: column
+  align-content: flex-start
+  padding: 20px 40px
+
+.movies_list__item-image
+  // flex-shrink: 0
+  width: 180
+  height: 270
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5)
+  margin: 20px 0 0 20px
+
+.movies_list__item-title
+  font-weight: bold
+  font-size: 24px
+  margin: 0
+  color: title-color
+
+.hidden
+  display: none
+
+.spinner
+  width 40px
+  height 40px
+  position relative
+  margin 100px auto
+
+.double-bounce1, .double-bounce2
+  width 100%
+  height 100%
+  border-radius 50%
+  background-color color-tan
+  opacity 0.6
+  position absolute
+  top 0
+  left 0
+  -webkit-animation sk-bounce 2.0s infinite ease-in-out
+  animation sk-bounce 2.0s infinite ease-in-out
+
+.double-bounce2
+  -webkit-animation-delay -1.0s
+  animation-delay -1.0s
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}

@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { fetchMovies } from './actions';
 
 import MoviesList from './containers/movies_list';
+import Menu from './components/menu';
 
-const style = require('./styles.styl');
+const style = require('./assets/css/styles.styl');
 
 class App extends Component {
 
@@ -21,7 +22,10 @@ class App extends Component {
 
   render() {
     return (
-      <MoviesList />
+      <div>
+        <Menu />
+        <MoviesList />
+      </div>
     );
   }
 

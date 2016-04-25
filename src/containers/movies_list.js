@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-const style = require('./style.styl');
-
 class MoviesList extends Component {
 
   renderMovie(movie) {
@@ -13,9 +11,13 @@ class MoviesList extends Component {
 
     return (
       <div className="movies_list__item" key={ id }>
-        <img className="movies_list__item-image" src={ image } alt={ title } />
-        <p className="movies_list__item-title">{ title }</p>
-        <p className="movies_list__item-description">{ description }</p>
+        <div className="movies_list__item-left">
+          <img className="movies_list__item-image" src={ image } alt={ title } />
+        </div>
+        <div className="movies_list__item-right">
+          <p className="movies_list__item-title">{ title }</p>
+          <p className="movies_list__item-description">{ description }</p>
+        </div>
       </div>
     );
   }
