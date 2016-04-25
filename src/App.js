@@ -1,15 +1,34 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { fetchMovies } from './actions';
 
-export default class App extends Component {
+import MoviesList from './containers/movies_list';
+
+const style = require('./styles.styl');
+
+class App extends Component {
 
   constructor(props) {
     super(props);
-    console.log(props);
+
+    this.state = { page: 1 };
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.props.fetchMovies(this.state.page), 1000);
   }
 
   render() {
     return (
-      <h1>Hello world!!!</h1>
+      <MoviesList />
     );
   }
+
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchMovies }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(App);
