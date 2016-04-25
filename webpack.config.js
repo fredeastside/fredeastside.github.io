@@ -45,7 +45,7 @@ module.exports = {
       },
       {
         test:   /\.styl$/,
-        loader: 'style!css!stylus?resolve url'
+        loader: 'style!css!postcss!stylus?resolve url'
       }, {
         test:   /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
         loader: 'file?name=[path][name].[ext]?[hash]'
