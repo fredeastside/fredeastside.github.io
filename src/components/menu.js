@@ -1,14 +1,22 @@
 import React from 'react';
 
+const logo = require('./../img/logo.svg');
+
 export default (props) => {
   return (
-    <div className="navigation">
-      <img src="/assets/logo.png" className="logo" alt="logo" />
-      <ul className="navigation__list">
-        <li><a href="#">Новые</a></li>
-        <li><a href="#">Популярные</a></li>
-        <li><a href="#">Поиск</a></li>
-      </ul>
-    </div>
+    <header>
+      <div className="header">
+        <div>
+          <a href="/"><img src={logo} className="logo" alt="logo" /></a>
+        </div>
+        <div className="navigation">
+          <ul className="navigation__list">
+            <li><a href="#">Новые</a></li>
+            <li><a href="#">Популярные</a></li>
+            <li><a href="#">Поиск</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
   );
 };

@@ -6,7 +6,7 @@ import { fetchMovies } from './actions';
 import MoviesList from './containers/movies_list';
 import Menu from './components/menu';
 
-const style = require('./assets/css/styles.styl');
+const style = require('./css/styles.styl');
 
 class App extends Component {
 
