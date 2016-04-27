@@ -3,6 +3,7 @@ import React from 'react';
 const logo = require('./../img/logo.svg');
 
 export default (props) => {
+  console.log('render Menu');
   return (
     <header>
       <div className="header">

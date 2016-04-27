@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Pagination from './../components/pagination';
+
+const noImageAvailable = require('./../img/no_image_available.svg');
+
 class MoviesList extends Component {
 
   renderMovie(movie) {
     const id = movie.id,
           title = movie.title,
           description = movie.overview,
-          image = `http://image.tmdb.org/t/p/w300${movie.poster_path}`;//http://image.tmdb.org/t/p/w300/6bCplVkhowCjTHXWv49UjRPn0eK.jpg
+          imageClassName = "movies_list__item-image",
+          image = movie.poster_path
+                  ? <img className={imageClassName} src={ `http://image.tmdb.org/t/p/w300${movie.poster_path}` } alt={ title } />
+                  : <img className={imageClassName} src={ noImageAvailable } alt={ title } />;//
 
     return (
       <div className="movies_list__item" key={ id }>
         <div className="movies_list__item-left">
-          <img className="movies_list__item-image" src={ image } alt={ title } />
+          { image }
         </div>
         <div className="movies_list__item-right">
           <p className="movies_list__item-title">{ title }</p>
@@ -23,24 +30,26 @@ class MoviesList extends Component {
   }
 
   render() {
-    const movies = this.props.movies;
+    console.log('render MoviesList');
+    const movies = this.props.response.items ? this.props.response.items : [],
+          totalPages = this.props.response.totalPages;
 
     return (
-      <div className="movies_list">
+      <div>
       { !movies.length
         ? <div className="spinner">
             <div className="double-bounce1"></div>
             <div className="double-bounce2"></div>
           </div>
-        : movies.map( this.renderMovie)
+        : <div className="movies_list">{ movies.map( this.renderMovie) }<Pagination moviesOnLoad={ this.props.moviesOnLoad } currentPage={ this.props.currentPage } totalPages={ totalPages } /></div>
       }
       </div>
     )
   }
 }
 
-function mapStateToProps({ movies }) {
-  return { movies };
+function mapStateToProps({ response }) {
+  return { response };
 }
 
 export default connect(mapStateToProps)(MoviesList);

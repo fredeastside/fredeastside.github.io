@@ -8,7 +8,12 @@ export const FETCH_MOVIES = 'FETCH_MOVIES';
 
 export function fetchMovies(page) {
 
-  const url = `${API_URL}/movie/now_playing?api_key=${API_KEY}&language=${API_LANGUAGE}`;
+  page = parseInt(page);
+
+  let url = `${API_URL}/movie/now_playing?api_key=${API_KEY}&language=${API_LANGUAGE}`;
+
+  url = page ? url + `&page=${page}` : url;
+
   const request = axios.get(url);
 
   return {
