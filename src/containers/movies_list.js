@@ -1,11 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { fetchMovies, changePage } from './../actions';
 
 import Pagination from './../components/pagination';
 
 const noImageAvailable = require('./../img/no_image_available.svg');
 
 class MoviesList extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.changePage = this.changePage.bind(this);
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.props.fetchMovies(this.props.response.page), 1000);
+  }
+
+  changePage(page) {
+    if (this.props.response.page != page) {
+        this.props.fetchMovies(page);
+    }
+  }
 
   renderMovie(movie) {
     const id = movie.id,
@@ -32,7 +51,8 @@ class MoviesList extends Component {
   render() {
     console.log('render MoviesList');
     const movies = this.props.response.items ? this.props.response.items : [],
-          totalPages = this.props.response.totalPages;
+          totalPages = this.props.response.totalPages,
+          currentPage = this.props.response.page;
 
     return (
       <div>
@@ -41,7 +61,9 @@ class MoviesList extends Component {
             <div className="double-bounce1"></div>
             <div className="double-bounce2"></div>
           </div>
-        : <div className="movies_list">{ movies.map( this.renderMovie) }<Pagination moviesOnLoad={ this.props.moviesOnLoad } currentPage={ this.props.currentPage } totalPages={ totalPages } /></div>
+        : <div className="movies_list">{ movies.map( this.renderMovie) }
+            <Pagination changePage={ this.changePage } currentPage={ currentPage } totalPages={ totalPages } />
+          </div>
       }
       </div>
     )
@@ -52,4 +74,8 @@ function mapStateToProps({ response }) {
   return { response };
 }
 
-export default connect(mapStateToProps)(MoviesList);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchMovies, changePage }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);

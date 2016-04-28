@@ -3,12 +3,8 @@ import shortid from 'shortid';
 
 class Pagination extends Component{
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return !!(this.props.totalPages === nextProps.totalPages) ? false : true;
-  }
-
   onClickHandler(page) {
-    this.props.moviesOnLoad(page);
+    this.props.changePage(page);
   }
 
   renderPage(page) {
@@ -22,7 +18,7 @@ class Pagination extends Component{
   }
 
   renderPages() {
-    let pagination = []; console.log(this.props.totalPages);
+    let pagination = [];
 
     for(let i = 1; i <= this.props.totalPages; i++) {
       pagination.push(this.renderPage(i));
