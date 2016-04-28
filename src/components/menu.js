@@ -12,11 +12,13 @@ export default (props) => {
         </div>
         <div className="navigation">
           <ul className="navigation__list">
-            <li><a href="#">Новые</a></li>
-            <li><a href="#">Популярные</a></li>
-            <li><a href="#">Поиск</a></li>
+            <li><a href="/">Новые</a></li>
+            <li><a href="/popular">Популярные</a></li>
+            <li><a href="/top">Топ</a></li>
+            <li><a href="/upcoming">Ожидаемые</a></li>
           </ul>
         </div>
+        <div>Поиск</div>
       </div>
     </header>
   );
