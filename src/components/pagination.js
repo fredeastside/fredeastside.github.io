@@ -7,24 +7,60 @@ class Pagination extends Component{
     this.props.changePage(page);
   }
 
-  renderPage(page) {
+  renderPagination(c, m) {
+      var current = c,
+          last = m,
+          delta = 2,
+          left = current - delta,
+          right = current + delta + 1,
+          range = [],
+          rangeWithDots = [],
+          l;
 
-    let isActive = page == this.props.currentPage,
-        className = isActive ? "pagination__item pagination__item-active" : "pagination__item";
+      for (let i = 1; i <= last; i++) {
+          if (i == 1 || i == last || i >= left && i < right) {
+              range.push(i);
+          }
+      }
 
+      for (let i of range) {
+          if (l) {
+              if (i - l === 2) {
+                  rangeWithDots.push(
+                    this.renderPaginationPage(
+                      l + 1,
+                      this.getPageClass(!!((l + 1) == current))
+                    )
+                  );
+              } else if (i - l !== 1) {
+                  rangeWithDots.push(<div key={ shortid.generate() }>...</div>);
+              }
+          }
+
+          rangeWithDots.push(
+            this.renderPaginationPage(i, this.getPageClass(!!(i == current)))
+          );
+          l = i;
+      }
+
+      return rangeWithDots;
+  }
+
+  renderPaginationPage(number, classNameValue) {
     return (
-      <div onClick={ () => this.onClickHandler(page) } className={ className } key={ shortid.generate() }>{ page }</div>
+      <div
+          onClick={ () => this.onClickHandler(number) }
+          className={ classNameValue }
+          key={ shortid.generate() }>
+          { number }
+      </div>
     );
   }
 
-  renderPages() {
-    let pagination = [];
-
-    for(let i = 1; i <= this.props.totalPages; i++) {
-      pagination.push(this.renderPage(i));
-    }
-
-    return pagination;
+  getPageClass(isActive) {
+    return isActive
+            ? "pagination__item pagination__item-active"
+            : "pagination__item";
   }
 
   render() {
@@ -33,7 +69,7 @@ class Pagination extends Component{
 
     return (
       <div className="pagination">
-        { this.renderPages() }
+        { this.renderPagination(this.props.currentPage, this.props.totalPages) }
       </div>
     );
   }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
+
 import { fetchMovies, changePage } from './../actions';
 import Pagination from './../components/pagination';
 import noImageAvailable from './../img/no_image_available.svg';
@@ -26,8 +28,9 @@ class MoviesList extends Component {
   renderMovie(movie) {
     const id = movie.id,
           title = movie.title,
-          description = movie.overview,
+          description = movie.overview ? movie.overview : 'Описание отсутствует.',
           imageClassName = "movies_list__item-image",
+          dateRelease = movie.release_date,
           image = movie.poster_path
                   ? <img
                       className={imageClassName}
@@ -44,8 +47,11 @@ class MoviesList extends Component {
           { image }
         </div>
         <div className="movies_list__item-right">
-          <p className="movies_list__item-title">{ title }</p>
+          <p className="movies_list__item-title">
+            <Link to={{ pathname: `/movie/${id}` }}>{ title }</Link>
+          </p>
           <p className="movies_list__item-description">{ description }</p>
+          <p className="movies_list__item-date">Дата выхода: { dateRelease }</p>
         </div>
       </div>
     );

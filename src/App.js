@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 
-import MoviesList from './containers/movies_list';
-import Menu from './components/menu';
+import Header from './components/header';
+import Footer from './components/footer';
 
 import './css/styles.styl';
 
 class App extends Component {
-
   render() {
     console.log('render App');
     return (
       <div>
-        <Menu />
-        <MoviesList />
+        <Header />
+        { this.props.children }
+        <Footer />
       </div>
     );
   }
