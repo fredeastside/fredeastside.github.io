@@ -148,3 +148,29 @@ body
   cursor: default
   &:hover
     border: 1px solid title-color
+
+.search
+  display: flex
+  flex-direction: row
+  align-items: center
+  margin-left: 50px
+  &::after
+    content: ''
+    background: url('../img/search.svg') no-repeat
+    background-size: contain
+    width: 25px
+    height: 25px
+    margin-left: 10px
+
+
+.search__input
+  border: 1px solid title-color
+  height: 35px
+  width: 200px
+  box-shadow: 0 0 10px alpha(#000, 0.5)
+  padding: 0 10px
+  border-radius: 4px
+  cursor: pointer
+  outline: none
+  &:hover
+    border: 1px solid color-tan

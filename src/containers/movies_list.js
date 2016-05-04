@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import { fetchMovies, changePage } from './../actions';
-
 import Pagination from './../components/pagination';
-
-const noImageAvailable = require('./../img/no_image_available.svg');
+import noImageAvailable from './../img/no_image_available.svg';
 
 class MoviesList extends Component {
 
@@ -32,8 +29,14 @@ class MoviesList extends Component {
           description = movie.overview,
           imageClassName = "movies_list__item-image",
           image = movie.poster_path
-                  ? <img className={imageClassName} src={ `http://image.tmdb.org/t/p/w300${movie.poster_path}` } alt={ title } />
-                  : <img className={imageClassName} src={ noImageAvailable } alt={ title } />;//
+                  ? <img
+                      className={imageClassName}
+                      src={ `http://image.tmdb.org/t/p/w300${movie.poster_path}` }
+                      alt={ title } />
+                  : <img
+                      className={imageClassName}
+                      src={ noImageAvailable }
+                      alt={ title } />;
 
     return (
       <div className="movies_list__item" key={ id }>
@@ -62,7 +65,10 @@ class MoviesList extends Component {
             <div className="double-bounce2"></div>
           </div>
         : <div className="movies_list">{ movies.map( this.renderMovie) }
-            <Pagination changePage={ this.changePage } currentPage={ currentPage } totalPages={ totalPages } />
+            <Pagination
+              changePage={ this.changePage }
+              currentPage={ currentPage }
+              totalPages={ totalPages } />
           </div>
       }
       </div>

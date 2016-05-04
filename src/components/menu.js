@@ -1,6 +1,6 @@
 import React from 'react';
-
-const logo = require('./../img/logo.svg');
+import logo from './../img/logo.svg';
+import Search from './search';
 
 export default (props) => {
   console.log('render Menu');
@@ -18,7 +18,7 @@ export default (props) => {
             <li><a href="/upcoming">Ожидаемые</a></li>
           </ul>
         </div>
-        <div>Поиск</div>
+        <Search />
       </div>
     </header>
   );

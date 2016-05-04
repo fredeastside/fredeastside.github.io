@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import MoviesList from './containers/movies_list';
 import Menu from './components/menu';
 
-const style = require('./css/styles.styl');
+import './css/styles.styl';
 
 class App extends Component {
 
