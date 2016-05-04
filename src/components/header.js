@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import Search from './search';
 
 const logo = require('./../img/logo.svg');
 
@@ -19,7 +20,7 @@ export default (props) => {
             <li><Link to="/upcoming">Ожидаемые</Link></li>
           </ul>
         </div>
-        <div>Поиск</div>
+        <Search />
       </div>
     </header>
   );
