@@ -7,16 +7,16 @@ const API_URL = 'http://api.themoviedb.org/3';
 export const FETCH_MOVIES = 'FETCH_MOVIES';
 export const FETCH_MOVIE = 'FETCH_MOVIE';
 
-export function fetchMovies(apiAction, page) {
+export function fetchMovies(apiAction, page, query) {
 
   page = parseInt(page);
 
-  apiAction = !!(apiAction === 'search')
-              ? `/${apiAction}/movie`
+  apiAction = apiAction === 'search' ? `/${apiAction}/movie`
               : `/movie/${apiAction}`;
 
   let url = `${API_URL}${apiAction}?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 
+  url = query ? url + `&query=${query}` : url;
   url = page ? url + `&page=${page}` : url;
 
   return {

@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 import { fetchMovies } from './../actions';
 import Pagination from './../components/pagination';
 import Spinner from './../components/spinner';
-import noImageAvailable from './../img/no_image_available.svg';
+import MovieImage from './../components/movie_image';
 
 class MoviesList extends Component {
 
@@ -19,41 +19,46 @@ class MoviesList extends Component {
   componentDidMount() {
     setTimeout(() => this.props.fetchMovies(
       this.props.apiAction,
-      this.props.moviesList.page
+      this.props.moviesList.page,
+      this.getSearchQuery()
     ), 1000);
   }
 
   changePage(page) {
     if (this.props.moviesList.page != page) {
-        this.props.fetchMovies(this.props.apiAction, page);
+        this.props.fetchMovies(
+            this.props.apiAction,
+            page,
+            this.getSearchQuery()
+        );
         window.scrollTo(0, 0);
     }
+  }
+
+  getSearchQuery() {
+    return this.props.query ? this.props.query.query : null;
   }
 
   renderMovie(movie) {
     const id = movie.id,
           title = movie.title,
           description = movie.overview ? movie.overview : 'Описание отсутствует.',
-          imageClassName = "movies_list__item-image",
           dateRelease = movie.release_date,
-          image = movie.poster_path
-                  ? <img
-                      className={imageClassName}
-                      src={ `http://image.tmdb.org/t/p/w300${movie.poster_path}` }
-                      alt={ title } />
-                  : <img
-                      className={imageClassName}
-                      src={ noImageAvailable }
-                      alt={ title } />;
+          image = movie.poster_path;
 
     return (
       <div className="movies_list__item" key={ id }>
-        <div className="movies_list__item-left">
-          { image }
-        </div>
+        <MovieImage
+          wrapperClassName="movies_list__item-left"
+          image={ image }
+          resolution="300"
+          imageClassName="movies_list__item-image"
+          title={ title } />
         <div className="movies_list__item-right">
           <p className="movies_list__item-title">
-            <Link to={{ pathname: `/movie/${id}` }} className="movies_list__item-title-link">{ title }</Link>
+            <Link
+              to={{ pathname: `/movie/${id}` }}
+              className="movies_list__item-title-link">{ title }</Link>
           </p>
           <p className="movies_list__item-description">{ description }</p>
           <p className="movies_list__item-date">Дата выхода: { dateRelease }</p>
@@ -71,8 +76,7 @@ class MoviesList extends Component {
 
     return (
       <div>
-      { !movies.length
-        ? <Spinner />
+      { !movies.length ? <Spinner />
         : <div className="movies_list">{ movies.map( this.renderMovie) }
             <Pagination
               changePage={ this.changePage }
@@ -81,7 +85,7 @@ class MoviesList extends Component {
           </div>
       }
       </div>
-    )
+    );
   }
 }
 

@@ -4,18 +4,16 @@ import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
+import store from './store';
+import reducers from './reducers';
+
+import App from './App';
 import NotFound from './components/not_found';
 import MoviesList from './containers/movies_list';
 import Movie from './containers/movie';
 
-import store from './store';
-import reducers from './reducers';
-import App from './App';
-
 const mainStore = store(reducers);
 const history = syncHistoryWithStore(browserHistory, mainStore);
-
-history.listen(location => console.log(location.pathname));
 
 ReactDOM.render(
   <Provider store={ mainStore }>
@@ -28,7 +26,7 @@ ReactDOM.render(
         <Route path="/movie/:movieId" component={ Movie } />
         <Route path="/search" component={ (props) => {
           return (
-            <MoviesList apiAction="search" />
+            <MoviesList apiAction="search" query={ props.location.query } />
           );
         } } />
         <Route path="*" component={ NotFound } />

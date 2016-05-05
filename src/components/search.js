@@ -19,7 +19,9 @@ class SearchBar extends Component {
   onSubmitHandler(event) {
     event.preventDefault();
 
-    console.log(this.context);
+    if (!this.state.term.length) {
+      return;
+    }
 
     browserHistory.push({
       pathname: '/search',
@@ -28,7 +30,7 @@ class SearchBar extends Component {
       }
     });
 
-    //this.setState({ term: '' });
+    this.setState({ term: '' });
   }
 
   render() {
@@ -40,6 +42,7 @@ class SearchBar extends Component {
             onChange={ this.onChangeHandler }
             className="search__input"
             type="text"
+            value={ this.state.term }
             placeholder="Поиск" />
             <button type="submit" className="search__button"></button>
         </form>

@@ -69,7 +69,11 @@ class Pagination extends Component {
 
     return (
       <div className="pagination">
-        { this.renderPagination(this.props.currentPage, this.props.totalPages) }
+        {
+          this.props.totalPages > 1
+          ? this.renderPagination(this.props.currentPage, this.props.totalPages)
+          : ''
+        }
       </div>
     );
   }
