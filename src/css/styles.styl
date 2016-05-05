@@ -17,6 +17,13 @@ body
   width: 1280
   margin: 0 auto
 
+.wrapper
+  min-height: 600px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+
 .header
   display: flex
   height: 100
@@ -48,6 +55,8 @@ body
   padding: 1em
   color: base-font-color
   &:hover
+    color: color-tan
+  &.navigation__list_active
     color: color-tan
 
 .movies_list
@@ -88,6 +97,11 @@ body
   margin: 0
   color: title-color
 
+.movies_list__item-title-link
+  color: title-color
+  &:hover
+    color: color-tan
+
 .hidden
   display: none
 
@@ -95,7 +109,6 @@ body
   width 50px
   height 50px
   position relative
-  margin 100px auto
 
 .double-bounce1, .double-bounce2
   width 100%
@@ -152,31 +165,34 @@ body
   &:hover
     border: 1px solid title-color
 
-.search
+.search__form
   display: flex
   flex-direction: row
   align-items: center
   margin-left: 50px
-  &::after
-    content: ''
-    background: url('../img/search.svg') no-repeat
-    background-size: contain
-    width: 25px
-    height: 25px
-    margin-left: 10px
-
+  margin: 0
+  padding: 0
 
 .search__input
-  border: 1px solid title-color
+  border: 1px solid color-tan
   height: 35px
   width: 200px
   box-shadow: 0 0 10px alpha(#000, 0.5)
   padding: 0 10px
   border-radius: 4px
-  cursor: pointer
   outline: none
   &:hover
-    border: 1px solid color-tan
+    border: 1px solid title-color
+
+.search__button
+  background: url('../img/search.svg') no-repeat
+  background-size: contain
+  width: 25px
+  height: 25px
+  margin-left: 10px
+  cursor: pointer
+  border: none;
+  outline: none;
 
 .movies_list__item-date
   text-align: right
@@ -196,3 +212,12 @@ body
 
 .not-found__code
   font-size: 800%
+
+.movie
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+
+.movie__title
+  color: title-color

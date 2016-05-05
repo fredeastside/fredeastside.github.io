@@ -5,19 +5,32 @@ const API_LANGUAGE = 'ru';
 const API_URL = 'http://api.themoviedb.org/3';
 
 export const FETCH_MOVIES = 'FETCH_MOVIES';
+export const FETCH_MOVIE = 'FETCH_MOVIE';
 
-export function fetchMovies(page) {
+export function fetchMovies(apiAction, page) {
 
   page = parseInt(page);
 
-  let url = `${API_URL}/movie/now_playing?api_key=${API_KEY}&language=${API_LANGUAGE}`;
+  apiAction = !!(apiAction === 'search')
+              ? `/${apiAction}/movie`
+              : `/movie/${apiAction}`;
+
+  let url = `${API_URL}${apiAction}?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 
   url = page ? url + `&page=${page}` : url;
 
-  const request = axios.get(url);
-
   return {
     type: FETCH_MOVIES,
-    payload: request
+    payload: axios.get(url)
+  };
+}
+
+export function fetchMovie(movieId) {
+
+  let url = `${API_URL}/movie/${parseInt(movieId)}?api_key=${API_KEY}&language=${API_LANGUAGE}`;
+
+  return {
+    type: FETCH_MOVIE,
+    payload: axios.get(url)
   };
 }

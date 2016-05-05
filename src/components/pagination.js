@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
 
-class Pagination extends Component{
+class Pagination extends Component {
 
   onClickHandler(page) {
     this.props.changePage(page);

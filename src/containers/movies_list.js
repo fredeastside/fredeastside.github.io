@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
 
-import { fetchMovies, changePage } from './../actions';
+import { fetchMovies } from './../actions';
 import Pagination from './../components/pagination';
+import Spinner from './../components/spinner';
 import noImageAvailable from './../img/no_image_available.svg';
 
 class MoviesList extends Component {
@@ -16,12 +17,16 @@ class MoviesList extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => this.props.fetchMovies(this.props.response.page), 1000);
+    setTimeout(() => this.props.fetchMovies(
+      this.props.apiAction,
+      this.props.moviesList.page
+    ), 1000);
   }
 
   changePage(page) {
-    if (this.props.response.page != page) {
-        this.props.fetchMovies(page);
+    if (this.props.moviesList.page != page) {
+        this.props.fetchMovies(this.props.apiAction, page);
+        window.scrollTo(0, 0);
     }
   }
 
@@ -48,7 +53,7 @@ class MoviesList extends Component {
         </div>
         <div className="movies_list__item-right">
           <p className="movies_list__item-title">
-            <Link to={{ pathname: `/movie/${id}` }}>{ title }</Link>
+            <Link to={{ pathname: `/movie/${id}` }} className="movies_list__item-title-link">{ title }</Link>
           </p>
           <p className="movies_list__item-description">{ description }</p>
           <p className="movies_list__item-date">Дата выхода: { dateRelease }</p>
@@ -59,17 +64,15 @@ class MoviesList extends Component {
 
   render() {
     console.log('render MoviesList');
-    const movies = this.props.response.items ? this.props.response.items : [],
-          totalPages = this.props.response.totalPages,
-          currentPage = this.props.response.page;
+
+    const movies = this.props.moviesList.items ? this.props.moviesList.items : [],
+          totalPages = this.props.moviesList.totalPages,
+          currentPage = this.props.moviesList.page;
 
     return (
       <div>
       { !movies.length
-        ? <div className="spinner">
-            <div className="double-bounce1"></div>
-            <div className="double-bounce2"></div>
-          </div>
+        ? <Spinner />
         : <div className="movies_list">{ movies.map( this.renderMovie) }
             <Pagination
               changePage={ this.changePage }
@@ -82,12 +85,12 @@ class MoviesList extends Component {
   }
 }
 
-function mapStateToProps({ response }) {
-  return { response };
+function mapStateToProps({ moviesList }) {
+  return { moviesList };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchMovies, changePage }, dispatch);
+  return bindActionCreators({ fetchMovies }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);

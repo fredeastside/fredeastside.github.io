@@ -8,10 +8,13 @@ import './css/styles.styl';
 class App extends Component {
   render() {
     console.log('render App');
+
     return (
       <div>
         <Header />
-        { this.props.children }
+        <div className="wrapper">
+          { this.props.children }
+        </div>
         <Footer />
       </div>
     );

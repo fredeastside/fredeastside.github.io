@@ -1,15 +1,10 @@
-import { FETCH_MOVIES } from '../actions';
+import { FETCH_MOVIE } from '../actions';
 
-export default function(state = { page: 1 }, action) {
+export default function(state = {}, action) {
 
   switch (action.type) {
-    case FETCH_MOVIES:
-      //return { ...state, items: action.payload.data.results, totalPages: action.payload.data.total_pages };
-      return Object.assign({}, state, {
-        items: action.payload.data.results,
-        totalPages: action.payload.data.total_pages,
-        page: action.payload.data.page
-      });
+    case FETCH_MOVIE:
+      return Object.assign({}, state, action.payload.data);
   }
 
   return state;
