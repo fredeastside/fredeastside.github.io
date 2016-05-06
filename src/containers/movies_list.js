@@ -73,7 +73,6 @@ class MoviesList extends Component {
   }
 
   render() {
-    console.log('render MoviesList');
 
     const movies = this.props.moviesList.items ? this.props.moviesList.items : [],
           totalPages = this.props.moviesList.totalPages,

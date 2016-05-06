@@ -7,7 +7,6 @@ import './css/styles.styl';
 
 class App extends Component {
   render() {
-    console.log('render App');
 
     return (
       <div>

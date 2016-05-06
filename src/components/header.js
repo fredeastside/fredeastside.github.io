@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 import SearchBar from './search';
+import Language from './language';
 
-const logo = require('./../img/logo.svg');
+import logo from './../img/logo.svg';
 
 export default (props) => {
-  console.log('render Header');
 
   return (
     <header>
@@ -39,6 +39,7 @@ export default (props) => {
           </ul>
         </div>
         <SearchBar />
+        <Language />
       </div>
     </header>
   );

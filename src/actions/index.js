@@ -6,7 +6,7 @@ const API_URL = 'http://api.themoviedb.org/3';
 
 export const FETCH_MOVIES = 'FETCH_MOVIES';
 export const FETCH_MOVIE = 'FETCH_MOVIE';
-export const ROUTER_CHANGE = 'ROUTER_CHANGE';
+export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
 
 export function fetchMovies(apiAction, page, query) {
 
@@ -36,8 +36,9 @@ export function fetchMovie(movieId) {
   };
 }
 
-export function routerStateChange(state) {
+export function changeLanguage(language) {
   return {
-      type: ROUTER_CHANGE
+      type: CHANGE_LANGUAGE,
+      payload: language
   };
 }

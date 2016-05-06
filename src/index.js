@@ -6,7 +6,6 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import store from './store';
 import reducers from './reducers';
-import { routerStateChange } from './actions';
 
 import App from './App';
 import NotFound from './components/not_found';
@@ -18,9 +17,7 @@ const history = syncHistoryWithStore(browserHistory, mainStore);
 
 ReactDOM.render(
   <Provider store={ mainStore }>
-    <Router
-      history={ history }
-      onUpdate={ function() { mainStore.dispatch(routerStateChange(this.state)); } }>
+    <Router history={ history }>{/*onUpdate={ () => window.scrollTo(0, 0) }*/}
       <Route path="/" component={ App }>
         <IndexRoute component={ () => <MoviesList apiAction="now_playing" /> } />
         <Route path="/popular" component={ () => <MoviesList apiAction="popular" /> } />

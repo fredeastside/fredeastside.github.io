@@ -11,12 +11,11 @@ class Movie extends Component {
   constructor(props) {
     super(props);
 
-    setTimeout(this.props.fetchMovie(this.props.params.movieId), 500);
-    //this.props.fetchMovie(this.props.params.movieId);
+    //setTimeout(this.props.fetchMovie(this.props.params.movieId), 500);
+    this.props.fetchMovie(this.props.params.movieId);
   }
 
   render() {
-    console.log('render Movie');
 
     const { title, overview } = this.props.movie,
           image = this.props.movie.backdrop_path,
@@ -28,13 +27,17 @@ class Movie extends Component {
         : <div className="movie">
             <h1 className="movie__title">{ title }</h1>
               <MovieImage
-                wrapperClassName=""
+                wrapperClassName="movie__image"
                 image={ image }
                 resolution="1000"
                 imageClassName=""
                 title={ title } />
-              <p>{ overview }</p>
-              <p>Рейтинг: <span>{ rating }</span></p>
+              <div className="movie__description">
+                <p>{ overview }</p>
+              </div>
+              <div className="movie__rating">
+                <p>Рейтинг: <span className="movie__rating-mark">{ rating }</span></p>
+              </div>
           </div>
       }
       </div>

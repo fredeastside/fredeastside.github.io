@@ -1,4 +1,5 @@
-import { FETCH_MOVIES, ROUTER_CHANGE } from '../actions';
+import { FETCH_MOVIES } from '../actions';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 export default function(state = { page: 1 }, action) {
 
@@ -10,7 +11,10 @@ export default function(state = { page: 1 }, action) {
         totalPages: action.payload.data.total_pages,
         page: action.payload.data.page
       });
-    case ROUTER_CHANGE:
+    case LOCATION_CHANGE:
+      if (action.payload.action === 'REPLACE') {
+        return state;
+      }
       return Object.assign({}, state, {
         items: [],
         totalPages: 1,

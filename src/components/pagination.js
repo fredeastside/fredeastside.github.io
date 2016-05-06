@@ -65,8 +65,6 @@ class Pagination extends Component {
 
   render() {
 
-    console.log('render Pagination');
-
     return (
       <div className="pagination">
         {

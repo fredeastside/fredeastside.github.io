@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default (props) => {
-  console.log('render Footer');
   return (
     <footer>
       <div className="footer">
