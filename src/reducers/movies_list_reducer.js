@@ -1,4 +1,4 @@
-import { FETCH_MOVIES } from '../actions';
+import { FETCH_MOVIES, ROUTER_CHANGE } from '../actions';
 
 export default function(state = { page: 1 }, action) {
 
@@ -9,6 +9,12 @@ export default function(state = { page: 1 }, action) {
         items: action.payload.data.results,
         totalPages: action.payload.data.total_pages,
         page: action.payload.data.page
+      });
+    case ROUTER_CHANGE:
+      return Object.assign({}, state, {
+        items: [],
+        totalPages: 1,
+        page: 1
       });
   }
 

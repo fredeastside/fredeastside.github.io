@@ -11,7 +11,8 @@ class Movie extends Component {
   constructor(props) {
     super(props);
 
-    this.props.fetchMovie(this.props.params.movieId);
+    setTimeout(this.props.fetchMovie(this.props.params.movieId), 500);
+    //this.props.fetchMovie(this.props.params.movieId);
   }
 
   render() {

@@ -17,11 +17,16 @@ class MoviesList extends Component {
   }
 
   componentDidMount() {
+    /*this.props.fetchMovies(
+      this.props.apiAction,
+      this.props.moviesList.page,
+      this.getSearchQuery()
+    );*/
     setTimeout(() => this.props.fetchMovies(
       this.props.apiAction,
       this.props.moviesList.page,
       this.getSearchQuery()
-    ), 1000);
+    ), 500);
   }
 
   changePage(page) {

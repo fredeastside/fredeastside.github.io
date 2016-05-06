@@ -6,6 +6,7 @@ const API_URL = 'http://api.themoviedb.org/3';
 
 export const FETCH_MOVIES = 'FETCH_MOVIES';
 export const FETCH_MOVIE = 'FETCH_MOVIE';
+export const ROUTER_CHANGE = 'ROUTER_CHANGE';
 
 export function fetchMovies(apiAction, page, query) {
 
@@ -32,5 +33,11 @@ export function fetchMovie(movieId) {
   return {
     type: FETCH_MOVIE,
     payload: axios.get(url)
+  };
+}
+
+export function routerStateChange(state) {
+  return {
+      type: ROUTER_CHANGE
   };
 }
