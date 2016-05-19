@@ -47,8 +47,11 @@ module.exports = {
         test:   /\.styl$/,
         loader: 'style!css!postcss!stylus?resolve url'
       }, {
-        test:   /\.(png|jpg|svg|ttf|eot|woff|woff2)$/,
-        loader: 'file?name=[path][name].[ext]?[hash]'
+        test:   /\.(png|jpg?g|gif|svg|ttf|eot|woff|woff2)$/,
+        loaders: [
+          'file?name=[path][name].[ext]?[hash]',
+          //'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+        ]
       }
     ]
     // noParse:
@@ -80,7 +83,7 @@ module.exports = {
 };
 
 if (NODE_ENV === 'production') {
-  module.export.plugins.push(
+  module.exports.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,

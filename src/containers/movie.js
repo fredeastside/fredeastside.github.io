@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import ReactDisqusThread from 'react-disqus-thread';
 
 import { fetchMovie } from './../actions';
 import Spinner from './../components/spinner';
@@ -15,9 +16,13 @@ class Movie extends Component {
     this.props.fetchMovie(this.props.params.movieId);
   }
 
-  render() {
+  handleNewComment(comment) {
+    console.log(comment.text);
+  }
 
-    const { title, overview } = this.props.movie,
+  render() {
+    //console.log(this.props.movie);
+    const { id, title, overview } = this.props.movie,
           image = this.props.movie.backdrop_path,
           rating = this.props.movie.vote_average;
 
@@ -37,6 +42,15 @@ class Movie extends Component {
               </div>
               <div className="movie__rating">
                 <p>Рейтинг: <span className="movie__rating-mark">{ rating }</span></p>
+              </div>
+              <div className="movie__comments">
+                <ReactDisqusThread
+                  shortname="fredrsf"
+                  identifier={ String(id) }
+                  title={ title }
+                  url={ `http://localhost:3000/movie/${id}` }
+                  category_id="123456"
+                  onNewComment={ this.handleNewComment } />
               </div>
           </div>
       }

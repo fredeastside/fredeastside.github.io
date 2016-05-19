@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { changeLanguage } from './../actions';
 
 import ruFlag from './../img/ru.svg';
 import enFlag from './../img/gb.svg';
 
 class Language extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.onClickHandler = this.onClickHandler.bind(this);
+  }
+
   onClickHandler(event) {
     event.preventDefault();
 
-    //const language = event.target.closest('li').dataset.lang;
+    const language = event.target.closest('li').dataset.lang;
+
+    this.props.changeLanguage(language);
   }
 
   render() {
@@ -31,4 +43,8 @@ class Language extends Component {
   }
 }
 
-export default Language;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ changeLanguage }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Language);
