@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import { whyDidYouUpdate } from 'why-did-you-update'
 
 import store from './store';
 import reducers from './reducers';
@@ -14,6 +15,10 @@ import Movie from './containers/movie';
 
 const mainStore = store(reducers);
 const history = syncHistoryWithStore(browserHistory, mainStore);
+
+if (NODE_ENV !== 'production') {
+  whyDidYouUpdate(React)
+}
 
 ReactDOM.render(
   <Provider store={ mainStore }>
