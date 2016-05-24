@@ -28,7 +28,7 @@ export default (props) => {
             </li>
             <li>
               <Link
-                to="/top"
+                to="/top_rated"
                 activeClassName="navigation__list_active">Топ</Link>
             </li>
             <li>

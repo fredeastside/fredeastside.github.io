@@ -1,4 +1,5 @@
 import axios from 'axios';
+import promiseMiddleware from 'redux-promise';
 
 const API_KEY = '8e32027b616e193a9ea9248c756e103f';
 const API_URL = 'http://api.themoviedb.org/3';
@@ -20,10 +21,10 @@ export function fetchMovies(apiAction, page, query) {
   url = query ? url + `&query=${query}` : url;
   url = page ? url + `&page=${page}` : url;
 
+    
   return {
     type: FETCH_MOVIES,
-    payload: axios.get(url),
-    url:url
+    payload: axios.get(url)
   };
 }
 

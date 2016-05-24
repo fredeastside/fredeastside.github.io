@@ -26,7 +26,7 @@ ReactDOM.render(
       <Route path="/" component={ App }>
         <IndexRoute component={ () => <MoviesList apiAction="now_playing" /> } />
         <Route path="/popular" component={ () => <MoviesList apiAction="popular" /> } />
-        <Route path="/top" component={ () => <MoviesList apiAction="top_rated" /> } />
+        <Route path="/top_rated" component={ () => <MoviesList apiAction="top_rated" /> } />
         <Route path="/upcoming" component={ () => <MoviesList apiAction="upcoming" /> } />
         <Route path="/movie/:movieId" component={ Movie } />
         <Route path="/search" component={ (props) => {
