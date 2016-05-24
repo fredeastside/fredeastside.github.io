@@ -9,7 +9,8 @@ export default function(state = { page: 1 }, action) {
       return Object.assign({}, state, {
         items: action.payload.data.results,
         totalPages: action.payload.data.total_pages,
-        page: action.payload.data.page
+          page: action.payload.data.page,
+	  url:action.url
       });
     case LOCATION_CHANGE:
       if (action.payload.action === 'REPLACE') {

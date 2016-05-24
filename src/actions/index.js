@@ -1,8 +1,6 @@
 import axios from 'axios';
 
 const API_KEY = '8e32027b616e193a9ea9248c756e103f';
-const API_LANGUAGE = localStorage.getItem('language') ?
-                      localStorage.getItem('language') : 'ru';
 const API_URL = 'http://api.themoviedb.org/3';
 
 export const FETCH_MOVIES = 'FETCH_MOVIES';
@@ -10,7 +8,8 @@ export const FETCH_MOVIE = 'FETCH_MOVIE';
 export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
 
 export function fetchMovies(apiAction, page, query) {
-
+  let  API_LANGUAGE = localStorage.getItem('language') ?
+                      localStorage.getItem('language') : 'ru';
   page = parseInt(page);
 
   apiAction = apiAction === 'search' ? `/${apiAction}/movie`
@@ -23,12 +22,14 @@ export function fetchMovies(apiAction, page, query) {
 
   return {
     type: FETCH_MOVIES,
-    payload: axios.get(url)
+    payload: axios.get(url),
+    url:url
   };
 }
 
 export function fetchMovie(movieId) {
-
+  let  API_LANGUAGE = localStorage.getItem('language') ?
+                      localStorage.getItem('language') : 'ru';
   let url = `${API_URL}/movie/${parseInt(movieId)}?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 
   return {

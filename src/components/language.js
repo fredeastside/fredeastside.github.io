@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { changeLanguage } from './../actions';
+import { changeLanguage, fetchMovies } from './../actions';
 
 import ruFlag from './../img/ru.svg';
 import enFlag from './../img/gb.svg';
@@ -18,9 +18,12 @@ class Language extends Component {
   onClickHandler(event) {
     event.preventDefault();
 
-    const language = event.target.closest('li').dataset.lang;
-
-    this.props.changeLanguage(language);
+      const language = event.target.closest('li').dataset.lang;
+      localStorage.setItem('language', language);
+      //we should set current query in state and read it on language change
+      this.props.fetchMovies('now_playing');
+      console.log(this.props.url);
+      this.props.changeLanguage(language);
   }
 
   render() {
@@ -44,7 +47,12 @@ class Language extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ changeLanguage }, dispatch);
+    return bindActionCreators({ changeLanguage,fetchMovies }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(Language);
+function mapStateToProps(url)
+{
+    return {url} 
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Language);

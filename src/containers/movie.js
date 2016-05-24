@@ -48,7 +48,7 @@ class Movie extends Component {
                   shortname="fredrsf"
                   identifier={ String(id) }
                   title={ title }
-                  url={ `http://localhost:3000/movie/${id}` }
+                  url={ `localhost:3000` }
                   category_id="123456"
                   onNewComment={ this.handleNewComment } />
               </div>
