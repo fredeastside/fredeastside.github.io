@@ -1,8 +1,10 @@
-const NODE_ENV = process.env.NODE_ENV || 'development';
-const webpack = require('webpack');
+const NODE_ENV = process.env.NODE_ENV || 'development',
+      webpack = require('webpack'),
+      path = require('path');
+
 
 module.exports = {
-  context: __dirname + "/src",
+  context: path.join(__dirname, "/src"),
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
     'webpack/hot/only-dev-server',
@@ -16,7 +18,7 @@ module.exports = {
   }
   */
   output: {
-      path: __dirname + "/dist",
+      path: path.join(__dirname, "/dist"),
       publicPath: '/assets/',
       //filename: "bundle.[chunkhash].js" // filename: "[name].js" несколько точек входа
       filename: "bundle.js" // filename: "[name].js" несколько точек входа
@@ -41,7 +43,7 @@ module.exports = {
         test: /\.js$/,
         loaders: ['react-hot', 'babel'],
         //exclude: /node_modules/,
-        include: __dirname + "/src"
+        include: path.join(__dirname, "/src")
       },
       {
         test:   /\.styl$/,

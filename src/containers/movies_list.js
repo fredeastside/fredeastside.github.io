@@ -13,20 +13,22 @@ class MoviesList extends Component {
   constructor(props) {
     super(props);
 
+    this.state = { isLoading: false };
+
     this.changePage = this.changePage.bind(this);
   }
 
   componentDidMount() {
-    /*this.props.fetchMovies(
+    this.props.fetchMovies(
       this.props.apiAction,
       this.props.moviesList.page,
       this.getSearchQuery()
-    );*/
-    setTimeout(() => this.props.fetchMovies(
+    ).then(result => this.setState({ isLoading: true }));
+    /*setTimeout(() => this.props.fetchMovies(
       this.props.apiAction,
       this.props.moviesList.page,
       this.getSearchQuery()
-    ), 500);
+    ), 500);*/
   }
 
   changePage(page) {
@@ -72,22 +74,26 @@ class MoviesList extends Component {
     );
   }
 
-  render() {
-
+  renderList() {
     const movies = this.props.moviesList.items ? this.props.moviesList.items : [],
           totalPages = this.props.moviesList.totalPages,
           currentPage = this.props.moviesList.page;
 
     return (
+      <div className="movies_list">{ !movies.length ? <p>Данные отсутствуют.</p>
+         : movies.map(this.renderMovie) }
+         <Pagination
+           changePage={ this.changePage }
+           currentPage={ currentPage }
+           totalPages={ totalPages } />
+      </div>
+    );
+  }
+
+  render() {
+    return (
       <div>
-      { !movies.length ? <Spinner />
-        : <div className="movies_list">{ movies.map( this.renderMovie) }
-            <Pagination
-              changePage={ this.changePage }
-              currentPage={ currentPage }
-              totalPages={ totalPages } />
-          </div>
-      }
+        { !this.state.isLoading ? <Spinner /> : this.renderList() }
       </div>
     );
   }

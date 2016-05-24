@@ -21,7 +21,6 @@ class Movie extends Component {
   }
 
   render() {
-    //console.log(this.props.movie);
     const { id, title, overview } = this.props.movie,
           image = this.props.movie.backdrop_path,
           rating = this.props.movie.vote_average;
