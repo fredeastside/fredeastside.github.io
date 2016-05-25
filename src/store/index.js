@@ -2,6 +2,13 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxPromise from 'redux-promise';
 import createLogger from 'redux-logger';
 
-const logger = createLogger();
+const logger = createLogger(),
+      middlewares = [
+        ReduxPromise
+      ];
 
-export default applyMiddleware(ReduxPromise, logger)(createStore);
+  if (NODE_ENV !== 'production') {
+    middlewares.push(logger);
+  }
+
+export default applyMiddleware(...middlewares)(createStore);

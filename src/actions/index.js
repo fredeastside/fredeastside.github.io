@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const API_KEY = '8e32027b616e193a9ea9248c756e103f';
-const API_LANGUAGE = localStorage.getItem('language') ?
-                      localStorage.getItem('language') : 'ru';
+const API_LANGUAGE = localStorage.getItem('language') || 'ru';
 const API_URL = 'http://api.themoviedb.org/3';
 
 export const FETCH_MOVIES = 'FETCH_MOVIES';
