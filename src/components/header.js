@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import SearchBar from './search';
 import Language from './language';
+import AuthBar from './auth';
 
 import logo from './../img/logo.svg';
 
@@ -40,6 +41,7 @@ export default (props) => {
         </div>
         <SearchBar />
         <Language />
+        {/*<AuthBar />*/}
       </div>
     </header>
   );
