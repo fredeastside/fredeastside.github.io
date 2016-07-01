@@ -1,4 +1,5 @@
 import axios from 'axios';
+import promiseMiddleware from 'redux-promise';
 
 const API_KEY = '8e32027b616e193a9ea9248c756e103f';
 const API_LANGUAGE = localStorage.getItem('language') || 'ru';
@@ -9,7 +10,8 @@ export const FETCH_MOVIE = 'FETCH_MOVIE';
 export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
 
 export function fetchMovies(apiAction, page, query) {
-
+  let  API_LANGUAGE = localStorage.getItem('language') ?
+                      localStorage.getItem('language') : 'ru';
   page = parseInt(page);
 
   apiAction = apiAction === 'search' ? `/${apiAction}/movie`
@@ -20,6 +22,7 @@ export function fetchMovies(apiAction, page, query) {
   url = query ? url + `&query=${query}` : url;
   url = page ? url + `&page=${page}` : url;
 
+
   return {
     type: FETCH_MOVIES,
     payload: axios.get(url)
@@ -27,7 +30,8 @@ export function fetchMovies(apiAction, page, query) {
 }
 
 export function fetchMovie(movieId) {
-
+  let  API_LANGUAGE = localStorage.getItem('language') ?
+                      localStorage.getItem('language') : 'ru';
   let url = `${API_URL}/movie/${parseInt(movieId)}?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 
   return {
