@@ -1,15 +1,31 @@
 import axios from 'axios';
 import promiseMiddleware from 'redux-promise';
 
+import { FETCH_ALL, START, SUCCESS, FAIL } from '../constants';
+
 const API_KEY = '8e32027b616e193a9ea9248c756e103f';
 const API_LANGUAGE = localStorage.getItem('language') || 'ru';
 const API_URL = 'http://api.themoviedb.org/3';
 
-export const FETCH_MOVIES = 'FETCH_MOVIES';
-export const FETCH_MOVIE = 'FETCH_MOVIE';
-export const CHANGE_LANGUAGE = 'CHANGE_LANGUAGE';
 
-export function fetchMovies(apiAction, page, query) {
+export function fetchMovies() {
+  return (dispatch, store) => {
+    dispatch({
+      type: FETCH_ALL + START
+    });
+
+    axios
+      .get(
+        
+      )
+      .then()
+      .catch();
+
+  }
+}
+
+
+/*export function fetchMovies() {
   let  API_LANGUAGE = localStorage.getItem('language') ?
                       localStorage.getItem('language') : 'ru';
   page = parseInt(page);
@@ -17,7 +33,7 @@ export function fetchMovies(apiAction, page, query) {
   apiAction = apiAction === 'search' ? `/${apiAction}/movie`
               : `/movie/${apiAction}`;
 
-  let url = `${API_URL}${apiAction}?api_key=${API_KEY}&language=${API_LANGUAGE}`;
+  let url = `${API_URL}now_playing?api_key=${API_KEY}&language=ru`;
 
   url = query ? url + `&query=${query}` : url;
   url = page ? url + `&page=${page}` : url;
@@ -27,7 +43,7 @@ export function fetchMovies(apiAction, page, query) {
     type: FETCH_MOVIES,
     payload: axios.get(url)
   };
-}
+}*/
 
 export function fetchMovie(movieId) {
   let  API_LANGUAGE = localStorage.getItem('language') ?

@@ -1,18 +1,33 @@
-import { FETCH_MOVIES } from '../actions';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { fromJS } from 'immutable';
+import { FETCH_ALL, START, SUCCESS, FAIL } from '../actions';
+//import { LOCATION_CHANGE } from 'react-router-redux';
 
-export default function(state = { page: 1 }, action) {
+const defaultState = fromJS({
+  page: 1,
+  items: [],
+  totalPages: 0,
+  loading: false
+});
+
+export default function(movies = defaultState, action) {
 
   switch (action.type) {
-    case FETCH_MOVIES:
+
+    case FETCH_ALL + START:
+      return movies.set('loading', true);
+
+    case FETCH_ALL + SUCCESS:
+
+      console.log(action);
+      //return movies.set('items');
+
       //return { ...state, items: action.payload.data.results, totalPages: action.payload.data.total_pages };
-      return Object.assign({}, state, {
+      return Object.assign({}, movies, {
         items: action.payload.data.results,
         totalPages: action.payload.data.total_pages,
-          page: action.payload.data.page,
-	  url:action.url
+        page: action.payload.data.page
       });
-    case LOCATION_CHANGE:
+    /*case LOCATION_CHANGE:
       if (action.payload.action === 'REPLACE') {
         return state;
       }
@@ -20,8 +35,10 @@ export default function(state = { page: 1 }, action) {
         items: [],
         totalPages: 1,
         page: 1
-      });
+      });*/
+      case FETCH_ALL + FAIL:
+
   }
 
-  return state;
+  return movies;
 }

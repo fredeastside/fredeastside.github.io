@@ -4,7 +4,7 @@ import MovieReducer from './movie_reducer';
 import { routerReducer } from 'react-router-redux';
 
 export default combineReducers({
-  moviesList: MoviesListReducer,
+  movies: MoviesListReducer,
   routing: routerReducer,
   movie: MovieReducer
 });

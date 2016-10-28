@@ -10,20 +10,19 @@ import MovieImage from './../components/movie_image';
 
 class MoviesList extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = { isLoading: false };
-
-    this.changePage = this.changePage.bind(this);
-  }
-
   componentDidMount() {
-    this.props.fetchMovies(
+
+    console.log(this.props);
+
+    const { fetchMovies } = this.props;
+
+    fetchMovies();
+
+    /*this.props.fetchMovies(
       this.props.apiAction,
       this.props.moviesList.page,
       this.getSearchQuery()
-    ).then(result => this.setState({ isLoading: true }));
+    ).then(result => this.setState({ isLoading: true }));*/
     /*setTimeout(() => this.props.fetchMovies(
       this.props.apiAction,
       this.props.moviesList.page,
@@ -93,14 +92,14 @@ class MoviesList extends Component {
   render() {
     return (
       <div>
-        { !this.state.isLoading ? <Spinner /> : this.renderList() }
+        { true ? <Spinner /> : this.renderList() }
       </div>
     );
   }
 }
 
-function mapStateToProps({ moviesList }) {
-  return { moviesList };
+function mapStateToProps({ movies }) {
+  return { movies };
 }
 
 function mapDispatchToProps(dispatch) {
