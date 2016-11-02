@@ -150,6 +150,26 @@ body
   justify-content: center
   margin: 20px 0
   font-size: 12px
+  list-style none
+  & li
+    margin: 0px 3px
+    & a
+      border: 1px solid title-color
+      padding: 2px 5px
+      text-decoration: none;
+      color: base-font-color
+      &:hover
+        border: 1px solid color-tan
+        background-color: title-color
+        color: white
+  & li.active
+    color: white
+    cursor: default
+    & a
+      background-color: title-color
+      color: white
+      &:hover
+        border: 1px solid title-color
 
 .pagination__item
   border: 1px solid title-color

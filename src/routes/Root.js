@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
@@ -7,12 +7,13 @@ import '../css/styles.styl';
 
 class Root extends Component {
   render() {
-    console.log(123)
     return (
       <div>
+        <Header />
         <div className="wrapper">
           { this.props.children }
         </div>
+        <Footer />
       </div>
     );
   }

@@ -1,13 +1,10 @@
-const NODE_ENV = process.env.NODE_ENV || 'development',
-      webpack = require('webpack'),
+const webpack = require('webpack'),
       path = require('path');
 
 
 module.exports = {
   context: path.join(__dirname, "/src"),
   entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
     "./index"
   ],
   /*
@@ -41,7 +38,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        loaders: ['react-hot', 'babel'],
+        loaders: ['babel'],
         //exclude: /node_modules/,
         include: path.join(__dirname, "/src")
       },
@@ -68,30 +65,20 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(), // не пересобирать js если возникли ошибки
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(NODE_ENV)
-    })/*,
+      'process.env': {
+          'NODE_ENV': JSON.stringify('development')
+      }
+    }),
+    new webpack.NoErrorsPlugin() // не пересобирать js если возникли ошибки
+    /*,
     new webpack.optimize.CommonsChunkPlugin({
       name: "common"
     })*/
-  ]/*,
+  ],
   devServer: {
     host: 'localhost',
     port: 3000,
-    contentBase: __dirname + '/dist'
-  }*/
+    historyApiFallback: true
+  }
 };
-
-if (NODE_ENV === 'production') {
-  module.exports.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        drop_console: true,
-        unsafe: true
-      }
-    })
-  );
-}

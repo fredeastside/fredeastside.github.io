@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import SearchBar from './search';
-import Language from './language';
+import Language from '../containers/language';
 import AuthBar from './auth';
 
 import logo from './../img/logo.svg';

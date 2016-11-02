@@ -1,62 +1,50 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router';
+import { get } from 'immutable';
 
+
+import Pagination from 'react-js-pagination';
 import { fetchMovies } from './../actions';
-import Pagination from './../components/pagination';
 import Spinner from './../components/spinner';
 import MovieImage from './../components/movie_image';
 
 class MoviesList extends Component {
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  };
+
   componentDidMount() {
+    const { fetchMovies, params: { method }, location: { query: { query, page } } } = this.props;
 
-    console.log(this.props);
-
-    const { fetchMovies } = this.props;
-
-    fetchMovies();
-
-    /*this.props.fetchMovies(
-      this.props.apiAction,
-      this.props.moviesList.page,
-      this.getSearchQuery()
-    ).then(result => this.setState({ isLoading: true }));*/
-    /*setTimeout(() => this.props.fetchMovies(
-      this.props.apiAction,
-      this.props.moviesList.page,
-      this.getSearchQuery()
-    ), 500);*/
+    fetchMovies(method, page, query);
   }
 
-  changePage(page) {
-    if (this.props.moviesList.page != page) {
-        this.props.fetchMovies(
-            this.props.apiAction,
-            page,
-            this.getSearchQuery()
-        );
-        window.scrollTo(0, 0);
+  componentWillReceiveProps(nextProps) {
+    const { fetchMovies, movies, params: { method }, location: { query: { query, page } } } = this.props;
+
+    if (page != nextProps.location.query.page
+      || movies.get('language') !== nextProps.movies.get('language')
+       || method != nextProps.params.method
+       || query != nextProps.location.query.query
+     ) {
+      fetchMovies(nextProps.params.method, nextProps.location.query.page, nextProps.location.query.query);
     }
+
   }
 
-  getSearchQuery() {
-    return this.props.query ? this.props.query.query : null;
-  }
+  renderItem(movie) {
 
-  renderMovie(movie) {
-    const id = movie.id,
-          title = movie.title,
-          description = movie.overview ? movie.overview : 'Описание отсутствует.',
-          dateRelease = movie.release_date,
-          image = movie.poster_path;
+    const { id, title, release_date, poster_path } = movie;
+    const description = movie.overview ? movie.overview : 'Описание отсутствует.';
 
     return (
       <div className="movies_list__item" key={ id }>
         <MovieImage
           wrapperClassName="movies_list__item-left"
-          image={ image }
+          image={ poster_path }
           resolution="300"
           imageClassName="movies_list__item-image"
           title={ title } />
@@ -67,32 +55,51 @@ class MoviesList extends Component {
               className="movies_list__item-title-link">{ title }</Link>
           </p>
           <p className="movies_list__item-description">{ description }</p>
-          <p className="movies_list__item-date">Дата выхода: { dateRelease }</p>
+          <p className="movies_list__item-date">Дата выхода: { release_date }</p>
         </div>
       </div>
     );
   }
 
   renderList() {
-    const movies = this.props.moviesList.items ? this.props.moviesList.items : [],
-          totalPages = this.props.moviesList.totalPages,
-          currentPage = this.props.moviesList.page;
+    const { movies } = this.props,
+      items = movies.get('items');
 
-    return (
-      <div className="movies_list">{ !movies.length ? <p>Данные отсутствуют.</p>
-         : movies.map(this.renderMovie) }
-         <Pagination
-           changePage={ this.changePage }
-           currentPage={ currentPage }
-           totalPages={ totalPages } />
-      </div>
-    );
+    if (!items.length) {
+      return <p>Данные отсутствуют.</p>;
+    }
+
+    return items.map(this.renderItem);
+  }
+
+  handlePageChange = (page) => {
+    const { location } = this.props,
+      { router } = this.context;
+
+      router.push({ ...location, query: { ...location.query, page } })
   }
 
   render() {
+    const { movies } = this.props,
+      loading = movies.get('loading'),
+      totalPages = movies.get('totalPages'),
+      total = movies.get('total'),
+      page = movies.get('page');
+
+    if (loading) {
+      return <Spinner />;
+    }
+
     return (
-      <div>
-        { true ? <Spinner /> : this.renderList() }
+      <div className="movies_list">
+        { this.renderList() }
+        <Pagination
+          activePage={ page }
+          itemsCountPerPage={ 20 }
+          totalItemsCount={ total }
+          pageRangeDisplayed={ 10 }
+          onChange={ this.handlePageChange }
+        />
       </div>
     );
   }

@@ -19,15 +19,12 @@ export default (
   <Provider store={ mainStore }>
     <Router history={ history }>{/*onUpdate={ () => window.scrollTo(0, 0) }*/}
       <Route path="/" component={ Root }>
-        <IndexRoute component={ () => <MoviesList apiAction="now_playing" /> } />
-        <Route path="/popular" component={ () => <MoviesList apiAction="popular" /> } />
-        <Route path="/top" component={ () => <MoviesList apiAction="top_rated" /> } />
-        <Route path="/upcoming" component={ () => <MoviesList apiAction="upcoming" /> } />
-        <Route path="/movie/:movieId" component={ Movie } />
-        <Route path="/search" component={ (props) => {
-          return (
-            <MoviesList apiAction="search" query={ props.location.query } />
-          );
+        <IndexRoute component={ MoviesList } />
+        <Route path="/movie(/:id)" component={ Movie } />
+        <Route path="/:method" component={ (props) => {
+          return ['popular', 'top_rated', 'upcoming', 'search'].includes(props.params.method)
+            ? <MoviesList { ...props } />
+            : <NotFound />
         } } />
         <Route path="*" component={ NotFound } />
       </Route>

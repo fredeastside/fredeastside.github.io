@@ -7,17 +7,15 @@ class SearchBar extends Component {
     super(props);
 
     this.state = { term: '' };
-
-    this.onChangeHandler = this.onChangeHandler.bind(this);
-    this.onSubmitHandler = this.onSubmitHandler.bind(this);
   }
 
-  onChangeHandler(event) {
-    this.setState({ term: event.target.value });
-  }
+  onChangeHandler = (e) => {
+    e.preventDefault();
+    this.setState({ term: e.target.value });
+  };
 
-  onSubmitHandler(event) {
-    event.preventDefault();
+  onSubmitHandler = (e) => {
+    e.preventDefault();
 
     if (!this.state.term.length) {
       return;
@@ -31,7 +29,7 @@ class SearchBar extends Component {
     });
 
     this.setState({ term: '' });
-  }
+  };
 
   render() {
     return (

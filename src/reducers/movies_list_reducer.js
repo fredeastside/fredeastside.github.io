@@ -1,12 +1,16 @@
 import { fromJS } from 'immutable';
-import { FETCH_ALL, START, SUCCESS, FAIL } from '../actions';
+import { FETCH_ALL, START, SUCCESS, FAIL, CHANGE_LANGUAGE } from '../constants';
 //import { LOCATION_CHANGE } from 'react-router-redux';
+
+import language from '../utils/language';
 
 const defaultState = fromJS({
   page: 1,
   items: [],
   totalPages: 0,
-  loading: false
+  total: 0,
+  loading: false,
+  language: language.get()
 });
 
 export default function(movies = defaultState, action) {
@@ -17,16 +21,21 @@ export default function(movies = defaultState, action) {
       return movies.set('loading', true);
 
     case FETCH_ALL + SUCCESS:
+      const { page, total_pages, results, total_results } = action.payload;
 
-      console.log(action);
-      //return movies.set('items');
+      return movies
+        .set('loading', false)
+        .set('items', results)
+        .set('totalPages', total_pages)
+        .set('total', total_results)
+        .set('page', page);
 
-      //return { ...state, items: action.payload.data.results, totalPages: action.payload.data.total_pages };
-      return Object.assign({}, movies, {
-        items: action.payload.data.results,
-        totalPages: action.payload.data.total_pages,
-        page: action.payload.data.page
-      });
+    case FETCH_ALL + FAIL:
+      return movies.set('loading', false);
+
+    case CHANGE_LANGUAGE:
+      return movies.set('language', action.payload);
+
     /*case LOCATION_CHANGE:
       if (action.payload.action === 'REPLACE') {
         return state;
@@ -36,8 +45,6 @@ export default function(movies = defaultState, action) {
         totalPages: 1,
         page: 1
       });*/
-      case FETCH_ALL + FAIL:
-
   }
 
   return movies;
