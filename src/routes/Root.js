@@ -3,8 +3,6 @@ import React, { Component, PropTypes } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 
-import '../css/styles.styl';
-
 class Root extends Component {
   render() {
     return (

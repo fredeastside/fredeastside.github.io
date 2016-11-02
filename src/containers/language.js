@@ -4,8 +4,8 @@ import { bindActionCreators } from 'redux';
 
 import { changeLanguage } from './../actions';
 
-import ruFlag from './../img/ru.svg';
-import enFlag from './../img/gb.svg';
+import ruFlag from '../../img/ru.svg';
+import enFlag from '../../img/gb.svg';
 
 class Language extends Component {
 

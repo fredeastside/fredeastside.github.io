@@ -1,5 +1,5 @@
 import React from 'react';
-import noImageAvailable from './../img/no_image_available.svg';
+import noImageAvailable from '../../img/no_image_available.svg';
 
 export default (props) => {
 

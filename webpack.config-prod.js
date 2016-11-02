@@ -1,6 +1,6 @@
-const NODE_ENV = process.env.NODE_ENV || 'development',
-      webpack = require('webpack'),
-      path = require('path');
+const webpack = require('webpack'),
+      path = require('path'),
+      ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   context: path.join(__dirname, "/src"),
@@ -21,7 +21,7 @@ module.exports = {
       },
       {
         test:   /\.styl$/,
-        loader: 'style!css!postcss!stylus?resolve url'
+        loader: ExtractTextPlugin.extract('style', 'css!postcss!stylus?resolve url')
       }, {
         test:   /\.(png|jpg?g|gif|svg|ttf|eot|woff|woff2)$/,
         loaders: [
@@ -29,6 +29,9 @@ module.exports = {
         ]
       }
     ]
+  },
+  postcss: function () {
+    return [require('autoprefixer')];
   },
   resolve: {
     modulesDirectories: ['node_modules'],
@@ -40,9 +43,11 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(NODE_ENV)
+      'process.env': {
+          'NODE_ENV': JSON.stringify('production')
+      }
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -50,6 +55,7 @@ module.exports = {
         drop_console: true,
         unsafe: true
       }
-    })
+    }),
+    new ExtractTextPlugin("styles.css")
   ]
 };

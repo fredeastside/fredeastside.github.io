@@ -4,7 +4,7 @@ import SearchBar from './search';
 import Language from '../containers/language';
 import AuthBar from './auth';
 
-import logo from './../img/logo.svg';
+import logo from '../../img/logo.svg';
 
 export default (props) => {
 

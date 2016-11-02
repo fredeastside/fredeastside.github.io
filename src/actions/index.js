@@ -14,8 +14,6 @@ import language from '../utils/language';
 const API_KEY = '8e32027b616e193a9ea9248c756e103f';
 const API_URL = 'http://api.themoviedb.org/3';
 
-console.log(API_LANGUAGE);
-
 export function fetchMovies(method = 'now_playing', page = 1, query = false) {
   return (dispatch, store) => {
 
