@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import React, { Component, PropTypes } from 'react';
 
 class SearchBar extends Component {
 
@@ -8,6 +7,10 @@ class SearchBar extends Component {
 
     this.state = { term: '' };
   }
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired
+  };
 
   onChangeHandler = (e) => {
     e.preventDefault();
@@ -21,7 +24,9 @@ class SearchBar extends Component {
       return;
     }
 
-    browserHistory.push({
+    const { router } = this.context;
+
+    router.push({
       pathname: '/search',
       query: {
         query: this.state.term

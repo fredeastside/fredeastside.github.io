@@ -26,7 +26,7 @@ class MoviesList extends Component {
     const { fetchMovies, movies, params: { method }, location: { query: { query, page } } } = this.props;
 
     if (page != nextProps.location.query.page
-      || movies.get('language') !== nextProps.movies.get('language')
+       || movies.get('language') !== nextProps.movies.get('language')
        || method != nextProps.params.method
        || query != nextProps.location.query.query
      ) {
