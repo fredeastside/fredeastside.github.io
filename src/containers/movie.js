@@ -46,7 +46,7 @@ class Movie extends Component {
             <MovieImage
               wrapperClassName="movie__image"
               image={ image }
-              resolution="1000"
+              resolution="1280"
               imageClassName=""
               title={ title } />
             <div className="movie__description">
