@@ -1,4 +1,4 @@
-# react-redux example
+# Top movies
 
 ###### How to use
 1. install webpack (npm i -g webpack)
