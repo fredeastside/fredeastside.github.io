@@ -8,7 +8,7 @@ module.exports = {
     "./index"
   ],
   output: {
-      path: path.join(__dirname, "/dist"),
+      path: path.join(__dirname, "/assets"),
       publicPath: '/assets/',
       filename: "bundle.js"
   },
@@ -26,7 +26,7 @@ module.exports = {
       {
         test:   /\.(png|jpg?g|gif|svg|ttf|eot|woff|woff2)$/,
         loaders: [
-          'file?name=[path][name].[ext]?[hash]',
+          'file?name=/assets/img/[name].[ext]?[hash]',
           //'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       }
